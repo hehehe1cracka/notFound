@@ -1,0 +1,179 @@
+.pricing-card {
+    --white: hsl(var(--foreground));
+    --black: hsl(var(--card));
+    --paragraph: hsl(var(--muted-foreground));
+    --line: hsl(var(--border));
+    --primary: hsl(var(--primary));
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    max-width: 20rem;
+    margin: 0 auto;
+
+    background-color: hsl(var(--card));
+    /* Reduced opacity of background patterns for better light mode blending */
+    background-image: radial-gradient(at 88% 40%,
+            hsla(240, 15%, 9%, 0.05) 0px,
+            transparent 85%),
+        radial-gradient(at 49% 30%, hsla(240, 15%, 9%, 0.05) 0px, transparent 85%),
+        radial-gradient(at 14% 26%, hsla(240, 15%, 9%, 0.05) 0px, transparent 85%),
+        radial-gradient(at 0% 64%, hsla(263, 93%, 56%, 0.1) 0px, transparent 85%),
+        radial-gradient(at 41% 94%, hsla(284, 100%, 84%, 0.1) 0px, transparent 85%),
+        radial-gradient(at 100% 99%, hsla(306, 100%, 57%, 0.1) 0px, transparent 85%);
+
+    border-radius: 1rem;
+    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.1);
+    /* Standard shadow */
+    border: 1px solid hsl(var(--border));
+}
+
+.pricing-card .card__border {
+    overflow: hidden;
+    pointer-events: none;
+    position: absolute;
+    z-index: -10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    background-image: linear-gradient(0deg,
+            hsl(var(--border)) -50%,
+            hsl(var(--border)) 100%);
+    border-radius: 1rem;
+    opacity: 0.5;
+}
+
+/* 
+.pricing-card .card__border::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%), rotate(0deg);
+  transform-origin: left;
+  width: 200%;
+  height: 10rem;
+  background-image: linear-gradient(
+    0deg,
+    hsla(0, 0%, 100%, 0) 0%,
+    hsl(277, 95%, 60%) 40%,
+    hsl(277, 95%, 60%) 60%,
+    hsla(0, 0%, 40%, 0) 100%
+  );
+  animation: rotate 8s linear infinite;
+}
+*/
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gradient-text-flow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.pricing-card .card_title__container .card_title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    /* Dynamic moving gradient: Blue (#60a5fa) to Purple (#c084fc) */
+    background: linear-gradient(270deg, #3b82f6, #8b5cf6, #d946ef, #3b82f6);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-text-flow 6s ease infinite;
+}
+
+.pricing-card .card_title__container .card_paragraph {
+    margin-top: 0.5rem;
+    width: 100%;
+    font-size: 0.875rem;
+    color: var(--paragraph);
+    line-height: 1.5;
+}
+
+.pricing-card .line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--line);
+    border: none;
+    margin: 1rem 0;
+}
+
+.pricing-card .card__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0;
+    list-style: none;
+}
+
+.pricing-card .card__list .card__list_item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.pricing-card .card__list .card__list_item .check {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: var(--primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.pricing-card .card__list .card__list_item .check .check_svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    fill: hsl(var(--primary-foreground));
+    /* Use primary foreground for contrast */
+}
+
+.pricing-card .card__list .card__list_item .list_text {
+    font-size: 0.875rem;
+    color: var(--white);
+}
+
+.pricing-card .button {
+    cursor: pointer;
+    padding: 0.75rem;
+    width: 100%;
+    /* Dynamic button gradient using theme primary */
+    background-image: linear-gradient(90deg,
+            hsl(var(--primary)) 0%,
+            #8b5cf6 100%);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: hsl(var(--primary-foreground));
+    border: 0;
+    border-radius: 9999px;
+    box-shadow: 0 0 15px -5px hsl(var(--primary));
+    transition: transform 0.2s;
+    margin-top: auto;
+}
+
+.pricing-card .button:hover {
+    transform: scale(1.02);
+}
