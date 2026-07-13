@@ -9,6 +9,7 @@ interface CyberLoginFormProps {
     setIsSignUp: (isSignUp: boolean) => void;
     loading: boolean;
     signInWithGoogle: () => void;
+    errors?: Record<string, string>;
 }
 
 const CyberLoginForm: React.FC<CyberLoginFormProps> = ({
@@ -18,7 +19,8 @@ const CyberLoginForm: React.FC<CyberLoginFormProps> = ({
     isSignUp,
     setIsSignUp,
     loading,
-    signInWithGoogle
+    signInWithGoogle,
+    errors
 }) => {
     return (
         <StyledWrapper>
@@ -26,19 +28,24 @@ const CyberLoginForm: React.FC<CyberLoginFormProps> = ({
                 <p id="heading">{isSignUp ? 'Sign Up' : 'Login'}</p>
 
                 {isSignUp && (
-                    <div className="field">
-                        <svg className="input-icon" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        </svg>
-                        <input
-                            autoComplete="off"
-                            placeholder="Full Name"
-                            className="input-field"
-                            type="text"
-                            value={formData.displayName}
-                            onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
-                        />
-                    </div>
+                    <>
+                        <div className="field">
+                            <svg className="input-icon" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                            </svg>
+                            <input
+                                autoComplete="off"
+                                placeholder="Full Name"
+                                className="input-field"
+                                type="text"
+                                value={formData.displayName}
+                                onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
+                            />
+                        </div>
+                        {errors?.displayName && (
+                            <p className="text-red-500 text-[11px] font-semibold -mt-1 ml-3 text-left self-start">{errors.displayName}</p>
+                        )}
+                    </>
                 )}
 
                 <div className="field">
@@ -54,6 +61,10 @@ const CyberLoginForm: React.FC<CyberLoginFormProps> = ({
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
                 </div>
+                {errors?.email && (
+                    <p className="text-red-500 text-[11px] font-semibold -mt-1 ml-3 text-left self-start">{errors.email}</p>
+                )}
+
                 <div className="field">
                     <svg className="input-icon" xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="currentColor" viewBox="0 0 16 16">
                         <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
@@ -66,6 +77,10 @@ const CyberLoginForm: React.FC<CyberLoginFormProps> = ({
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     />
                 </div>
+                {errors?.password && (
+                    <p className="text-red-500 text-[11px] font-semibold -mt-1 ml-3 text-left self-start">{errors.password}</p>
+                )}
+
                 <div className="btn">
                     <button className="button1" type="submit" disabled={loading}>
                         {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Login')}

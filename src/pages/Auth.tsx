@@ -134,6 +134,8 @@ export default function Auth() {
         if (err.path[0]) fieldErrors[err.path[0] as string] = err.message;
       });
       setErrors(fieldErrors);
+      const firstError = result.error.errors[0]?.message || 'Validation failed';
+      toast({ title: 'Validation Error', description: firstError, variant: 'destructive' });
       return;
     }
 
@@ -227,6 +229,7 @@ export default function Auth() {
               setIsSignUp={setIsSignUp}
               loading={loading}
               signInWithGoogle={signInWithGoogle}
+              errors={errors}
             />
           </motion.div>
         );
